@@ -1,6 +1,6 @@
 import { useState, useContext } from "react";
 import { CATEGORIES } from "../../constants/categories.js";
-import { TransContext } from "../../context/TransContext.jsx";
+import { TransContext } from "../../context/transContext.js";
 
 export default function TransactionForm ({ setShowForm }) { 
     const { addTransaction } = useContext(TransContext);
@@ -52,14 +52,14 @@ export default function TransactionForm ({ setShowForm }) {
                 <form onSubmit={handleAddTrans}>
                     <div className="row mb-3">
                         <div className="col-md-3 d-flex align-items-center gap-2">
-                            <label className="form-label" for="sft">Type: </label>
+                            <label className="form-label" htmlFor="sft">Type: </label>
                             <select className="form-select" value={type} id="sft" onChange={(e) => setType(e.target.value) }>
                                 <option value="expense">Expense</option>
                                 <option value="income">Income</option>
                             </select>
                         </div>
                         <div className="col-md-6 d-flex align-items-center gap-2">
-                            <label className="form-label" for="sfc">Category: </label>
+                            <label className="form-label" htmlFor="sfc">Category: </label>
                             <select 
                                 className="form-select" 
                                 value={category}
@@ -98,7 +98,7 @@ export default function TransactionForm ({ setShowForm }) {
                     </div>
 
                     <div className="mb-3">
-                        <label className="form-label" for="recpt">Receipt (Optional)</label>
+                        <label className="form-label" htmlFor="recpt">Receipt (Optional)</label>
                         <input
                             type="file"
                             className="form-control"

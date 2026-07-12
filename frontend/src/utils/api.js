@@ -1,6 +1,7 @@
-const API_BASE_URL = import.meta.env.MODE === "development"
-    ? "http://localhost:4600"
-    : "https://spendwise-backend-ple6.onrender.com";
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL
+    || (import.meta.env.MODE === "development"
+        ? "http://localhost:4600"
+        : "https://spendwise-backend-ple6.onrender.com");
 
 export const apiFetch = async (url, options = {}) => {
     const token = localStorage.getItem("token");

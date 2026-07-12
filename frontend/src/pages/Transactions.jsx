@@ -1,5 +1,5 @@
 import { useState, useContext, useMemo } from "react";
-import { TransContext } from "../context/TransContext.jsx";
+import { TransContext } from "../context/transContext.js";
 import TransactionForm from "../components/Transactions/TransactionForm.jsx";
 import TransactionList from "../components/Transactions/TransactionList.jsx";
 import { CATEGORIES } from "../constants/categories.js";
@@ -42,7 +42,7 @@ export default function Transactions() {
 
             <div className="row d-flex align-items-center mb-4">
                 <div className="col-md-3 d-flex align-items-center gap-2">
-                    <label for="selt">Type: </label>
+                    <label htmlFor="selt">Type: </label>
                     <select 
                         className="form-select"
                         value={filterType}
@@ -56,7 +56,7 @@ export default function Transactions() {
                 </div>
 
                 <div className="col-md-4 d-flex align-items-center gap-2">
-                    <label for="selc">Category: </label>
+                    <label htmlFor="selc">Category: </label>
                     <select
                         className="form-select"
                         value={filterCategory}
@@ -71,7 +71,7 @@ export default function Transactions() {
                 </div>
 
                 <div className="d-flex align-items-center gap-2 col-md-5">
-                    <label for="sdesc">Description:</label>
+                    <label htmlFor="sdesc">Description:</label>
                     <input
                         type="text"
                         className="form-control"

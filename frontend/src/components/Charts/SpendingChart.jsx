@@ -26,7 +26,7 @@ export default function SpendingChart({ transactions }) {
                                 innerRadius={60}
                                 outerRadius={100}
                                 dataKey="value"
-                                label={({ name, percent }) => `${name} (${percent.toFixed(2)*100}%)`}
+                                label={({ name, percent }) => `${name} (${(percent * 100).toFixed(0)}%)`}
                                 labelLine={false}
                             >
                                 {pieData.map((entry, index) => (
@@ -34,7 +34,7 @@ export default function SpendingChart({ transactions }) {
                                 ))}
                             </Pie>
                             <Tooltip 
-                                formatter={(value, name) => [`$${value.toFixed(2)}`, "Amount"]}
+                                formatter={(value) => [`$${value.toFixed(2)}`, "Amount"]}
                                 contentStyle={{
                                     backgroundColor: "#1e2937",
                                     border: "none",

@@ -10,7 +10,7 @@ export default function RecentTransactions ({ transactions }) {
                         {transactions.slice(0, 5).map(transaction => (
                             <li key={transaction._id} className="list-group-item d-flex justify-content-between align-items-center">
                                 <div>
-                                    <strong>{transaction.dscription}</strong>
+                                    <strong>{transaction.description}</strong>
                                     <small className="text-muted d-block">{transaction.category}</small>
                                 </div>
                                 <span className={transaction.type === "income" ? "text-success" : "text-danger"}>

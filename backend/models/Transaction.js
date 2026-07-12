@@ -31,7 +31,7 @@ const transactionSchema = new mongoose.Schema({
         type: Date,
         default: Date.now
     },
-    receiptUrl: {    // For future AWS S3 integration
+    receiptUrl: {
         type: String
     }
 }, { timestamps: true });

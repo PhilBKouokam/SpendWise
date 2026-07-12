@@ -1,5 +1,5 @@
 import { useState, useContext } from "react";
-import { TransContext } from "../../context/TransContext.jsx";
+import { TransContext } from "../../context/transContext.js";
 import { CATEGORIES } from "../../constants/categories.js";
 
 export default function TransactionItem({ transaction }) {
@@ -74,7 +74,7 @@ export default function TransactionItem({ transaction }) {
                     <form onSubmit={handleUpdate}>
                         <div className="row g-3">
                             <div className="col-md-4 d-flex align-items-center gap-2">
-                                <label for="st" className="form-label">Type: </label>
+                                <label htmlFor="st" className="form-label">Type: </label>
                                 <select
                                     className="form-select"
                                     value={type}
@@ -86,11 +86,11 @@ export default function TransactionItem({ transaction }) {
                                 </select>
                             </div>
                             <div className="col-md-4 d-flex align-items-center gap-2">
-                                <label for="sc" className="form-label">Category: </label>
+                                <label htmlFor="sc" className="form-label">Category: </label>
                                 <select
                                     className="form-select"
                                     value={category}
-                                    id="st"
+                                    id="sc"
                                     onChange={(e) => setCategory(e.target.value)}
                                 >
                                     {CATEGORIES.map(cat => (
@@ -100,7 +100,7 @@ export default function TransactionItem({ transaction }) {
                                 </select>
                             </div>
                             <div className="col-md-4 d-flex align-items-center gap-2">
-                                <label for="am" className="form-label">Amount: </label>
+                                <label htmlFor="am" className="form-label">Amount: </label>
                                 <div className="input-group">
                                     <span className="input-group-text">$</span>
                                     <input
@@ -117,7 +117,7 @@ export default function TransactionItem({ transaction }) {
 
                         <div className="row mt-3">
                             <div className="col d-flex align-items-center gap-2">
-                                <label for="sd" className="form-label">Description: </label>
+                                <label htmlFor="sd" className="form-label">Description: </label>
                                 <input
                                     type="text"
                                     value={description}
@@ -130,7 +130,7 @@ export default function TransactionItem({ transaction }) {
                         </div>
 
                         <div className="d-flex align-items-center gap-3 mt-3">
-                                <label for="recpt" className="form-label">Receipt Image (Optional)</label>
+                                <label htmlFor="edit-recpt" className="form-label">Receipt Image (Optional)</label>
                                 {transaction.receiptUrl && (
                                     <div className="mb-2">
                                         <small>Current: </small>
@@ -143,7 +143,7 @@ export default function TransactionItem({ transaction }) {
                                     type="file"
                                     className="form-control"
                                     accept="image/*"
-                                    id="recpt"
+                                    id="edit-recpt"
                                     onChange={(e) => setReceipt(e.target.files[0])}
                                 />
                         </div>

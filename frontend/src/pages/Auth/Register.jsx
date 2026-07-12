@@ -1,6 +1,6 @@
 import { useState, useContext } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { AuthContext } from "../../context/AuthContext.jsx";
+import { AuthContext } from "../../context/authContext.js";
 import { apiFetch } from "../../utils/api.js";
 
 export default function Register() {
@@ -33,7 +33,7 @@ export default function Register() {
 
             login(data.token);
             navigate("/");
-        } catch (err) {
+        } catch {
             setError("Network error. Please try again");
             setTimeout(() => { setError("") }, 3000);
         } finally {

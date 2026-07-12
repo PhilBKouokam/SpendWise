@@ -1,6 +1,6 @@
 import TransactionItem from "./TransactionItem";
 import { useContext } from "react";
-import { TransContext } from "../../context/TransContext";
+import { TransContext } from "../../context/transContext";
 
 export default function TransactionList({ transactions }) {
     const { loading, error, fetchTransactions } = useContext(TransContext);

@@ -1,63 +1,172 @@
-# SpendWise 💰
+# SpendWise
 
-A full-stack personal finance tracker built with the MERN stack, featuring JWT authentication, interactive charts, dark mode, and AWS S3 receipt uploads.
+A full-stack personal finance tracker for managing authenticated income and expense records, visualizing spending patterns, and securely uploading receipt images.
 
-**[Live Demo](https://your-vercel-frontend.vercel.app)**  
-**[Backend API](https://your-render-backend.onrender.com)**
+## 🎥 2-Minute Walkthrough
 
-## ✨ Key Features
+https://www.loom.com/share/75bc2eae927b4d0d9c22ff35297a09c1
 
-- **Secure Authentication** – Register/Login with JWT + protected routes
-- **Full Transaction CRUD** – Create, read, update, delete expenses & income
-- **Beautiful Dashboard** – Balance cards, Spending by Category (donut chart), Balance Trend (line chart)
-- **Advanced Filtering** – Filter by type, category, and search by description
-- **Receipt Upload** – Store receipt images securely in **AWS S3**
-- **Dark/Light Mode** – Toggle with system preference support
-- **Responsive Design** – Built with Bootstrap
+## 🌐 Live Demo
 
-## 🛠 Tech Stack
+https://spendwise-two-navy.vercel.app
 
-**Frontend:** React 18 + Vite, React Router, Context API, Recharts, Bootstrap 5  
-**Backend:** Node.js, Express, MongoDB + Mongoose, JWT Authentication  
-**Cloud:** AWS S3 (receipt storage with Multer)  
-**Deployment:** Vercel (Frontend) + Render (Backend)
+## 💻 Source Code
+
+https://github.com/PhilBKouokam/spendwise
 
 ## 📸 Screenshots
 
-### Dashboard (Light Mode)
-![Dashboard Light](screenshots/SpendWise_Light_Dashboard.png)
+<table>
+  <tr>
+    <td align="center" width="50%">
+      <strong>Dashboard</strong><br />
+      <img src="screenshots/SpendWise_Light_Dashboard.png" alt="SpendWise dashboard with balance cards and charts" width="420">
+    </td>
+    <td align="center" width="50%">
+      <strong>Dark Mode Dashboard</strong><br />
+      <img src="screenshots/SpendWise_Dark_Dashboard.png" alt="SpendWise dark mode dashboard" width="420">
+    </td>
+  </tr>
+  <tr>
+    <td align="center" width="50%">
+      <strong>Transactions</strong><br />
+      <img src="screenshots/SpendWise_Transactions_Page.png" alt="SpendWise transactions list with filters" width="420">
+    </td>
+    <td align="center" width="50%">
+      <strong>Add Transaction and Receipt Upload</strong><br />
+      <img src="screenshots/SpendWise_Add_Transaction_Form.png" alt="SpendWise add transaction form with receipt upload" width="420">
+    </td>
+  </tr>
+  <tr>
+    <td align="center" colspan="2">
+      <strong>Edit Transaction</strong><br />
+      <img src="screenshots/SpendWise_Edit_Transactio_Form.png" alt="SpendWise edit transaction form" width="420">
+    </td>
+  </tr>
+</table>
 
-### Dashboard (Dark Mode)
-![Dashboard Dark](screenshots/SpendWise_Dark_Dashboard.png)
+## Why I Built This
 
-### Receipt Upload Feature
-![Receipt Upload](screenshots/SpendWise_Add_Transaction_Form.png)
+I built SpendWise to practice the engineering patterns behind production-style CRUD applications: account-based authentication, protected user data, client-server request flows, persistent database records, and cloud-backed file uploads.
 
-### Transaction List
-![Transaction List](screenshots/SpendWise_Transactions_Page.png)
+From a product perspective, the goal was to make personal finance tracking more useful than a static spreadsheet. Users can register, log transactions, attach receipt images, filter their history, and immediately see how income and expenses affect their balance and spending charts.
 
-## 🚀 Quick Start
+The project gave me practical experience connecting a React frontend to an Express API, securing routes with JWT authentication, modeling user-owned data in MongoDB, and integrating AWS S3 for receipt storage.
+
+## Features
+
+- Register and log in with JWT-based authentication.
+- Create income and expense transactions tied to the authenticated user.
+- View dashboard balance cards for total balance, income, and expenses.
+- Visualize spending by category and balance trends with Recharts.
+- Filter transactions by type, category, and description.
+- Edit and delete existing transactions.
+- Upload optional receipt images for transaction records.
+- Store receipt images in AWS S3 and save receipt URLs in MongoDB.
+- Protect dashboard and transaction pages from unauthenticated access.
+- Toggle between light and dark mode.
+
+## Engineering Highlights
+
+- JWT authentication for stateless user sessions.
+- bcrypt password hashing before user records are stored.
+- Protected React Router routes for authenticated pages.
+- React Context state management for authentication and transactions.
+- REST API architecture with separate route and controller layers.
+- MongoDB and Mongoose for structured user and transaction persistence.
+- User-scoped database queries to protect private financial records.
+- AWS S3 receipt uploads using the AWS SDK.
+- Multer multipart uploads with in-memory file handling.
+- Recharts data visualization for spending and balance trends.
+- Client-server architecture with separate frontend and backend deployments.
+- Responsive Bootstrap UI with dark mode support.
+
+## 🏗 Architecture
+
+SpendWise follows a client-server architecture where the React frontend owns the user experience and the backend owns authentication, authorization, persistence, and receipt storage.
+
+`React UI` → `React Context` → `REST API` → `Express Controllers` → `MongoDB with Mongoose` → `API Response` → `React UI Update`
+
+For receipt uploads:
+
+`React FormData Upload` → `Multer Middleware` → `AWS S3` → `Receipt URL Saved in MongoDB` → `React UI Update`
+
+## Key User Flows
+
+`Register` → `Login` → `Dashboard` → `Create Transaction` → `Upload Receipt` → `Edit Transaction` → `Delete Transaction` → `Charts Update Automatically`
+
+## Tech Stack
+
+**Frontend:** React, React Router, React Context, JavaScript, Bootstrap, Recharts, Vite
+
+**Backend:** Node.js, Express, JavaScript
+
+**Database:** MongoDB, Mongoose
+
+**Authentication:** JWT, bcrypt
+
+**Cloud:** AWS S3, Multer
+
+**Deployment:** Vercel frontend, Render backend
+
+**Developer Tools:** npm, ESLint, Git, GitHub
+
+## API Overview
+
+Deployed API: https://spendwise-backend-ple6.onrender.com
+
+| Method | Route | Description | JWT Required |
+| --- | --- | --- | --- |
+| POST | `/api/auth/register` | Create a user, hash the password, and return a JWT. | No |
+| POST | `/api/auth/login` | Validate credentials and return a JWT. | No |
+| GET | `/api/trans` | Fetch transactions for the authenticated user. | Yes |
+| POST | `/api/trans` | Create a transaction for the authenticated user. | Yes |
+| GET | `/api/trans/:id` | Fetch one transaction owned by the authenticated user. | Yes |
+| PATCH | `/api/trans/:id` | Update a transaction owned by the authenticated user. | Yes |
+| DELETE | `/api/trans/:id` | Delete a transaction owned by the authenticated user. | Yes |
+| POST | `/api/upload/receipt/:id` | Upload a receipt image to S3 and save the receipt URL on the transaction. | Yes |
+
+## Local Development
+
+### Prerequisites
+
+- Node.js
+- npm
+- MongoDB connection string
+- AWS S3 bucket and credentials for receipt uploads
+
+### Backend
 
 ```bash
-# Clone the repo
-git clone https://github.com/PhilBKouokam/spendwise.git
-cd spendwise
-
-# Backend
 cd backend
 npm install
-cp .env.example .env        # Add your credentials
 npm run dev
+```
 
-# Frontend (new terminal)
+Create `backend/.env` using `backend/.env.example`:
+
+```bash
+PORT=4600
+MONGO_URI=mongodb+srv://<username>:<password>@<cluster-url>/<database-name>
+JWT_SECRET=replace-with-a-long-random-development-secret
+AWS_ACCESS_KEY_ID=replace-with-your-aws-access-key-id
+AWS_SECRET_ACCESS_KEY=replace-with-your-aws-secret-access-key
+AWS_REGION=us-east-1
+AWS_BUCKET_NAME=replace-with-your-s3-bucket-name
+```
+
+### Frontend
+
+```bash
 cd frontend
 npm install
 npm run dev
+```
 
-📝 What I Learned / Highlights
+Create `frontend/.env` using `frontend/.env.example`:
 
-Built a complete JWT authentication system with protected routes
-Implemented secure file uploads to AWS S3 using Multer and the AWS SDK v3
-Managed complex global state using React Context API
-Created meaningful data visualizations with Recharts
-Focused on clean architecture and separation of concerns
+```bash
+VITE_API_BASE_URL=http://localhost:4600
+```
+
+Open the frontend development server in your browser, register an account, and start tracking transactions.

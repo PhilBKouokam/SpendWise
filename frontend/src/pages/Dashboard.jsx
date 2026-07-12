@@ -1,6 +1,6 @@
 import { useContext } from "react";
-import { AuthContext } from "../context/AuthContext.jsx";
-import { TransContext } from "../context/TransContext.jsx";
+import { AuthContext } from "../context/authContext.js";
+import { TransContext } from "../context/transContext.js";
 
 import BalanceCards from "../components/Dashboard/BalanceCards.jsx";
 import SpendingChart from "../components/Charts/SpendingChart.jsx";

@@ -1,8 +1,7 @@
-import { useState, useEffect, createContext, useCallback, useContext } from "react";
-import { AuthContext } from "./AuthContext";
+import { useState, useEffect, useCallback, useContext } from "react";
+import { AuthContext } from "./authContext";
+import { TransContext } from "./transContext";
 import { apiFetch } from "../utils/api";
-
-export const TransContext = createContext();
 
 export const TransProvider = ({ children }) => {
     const { user, token } = useContext(AuthContext);
@@ -18,7 +17,7 @@ export const TransProvider = ({ children }) => {
         setError("");
         try {
             const res = await apiFetch("/api/trans");
-            if (res.ok) {
+            if (res?.ok) {
                 const data = await res.json();
                 setTransactions(data);
             } else {
@@ -35,12 +34,20 @@ export const TransProvider = ({ children }) => {
 
     useEffect(() => {
         if (user && token) {
-            fetchTransactions();
+            const timeoutId = window.setTimeout(() => {
+                fetchTransactions();
+            }, 0);
+
+            return () => window.clearTimeout(timeoutId);
         } else {
-            setTransactions([]);
-            setLoading(false);
+            const timeoutId = window.setTimeout(() => {
+                setTransactions([]);
+                setLoading(false);
+            }, 0);
+
+            return () => window.clearTimeout(timeoutId);
         }
-    }, [user, token]);
+    }, [fetchTransactions, user, token]);
 
     const addTransaction = async (transactionData, receiptFile = null) => {
         try {
@@ -61,15 +68,11 @@ export const TransProvider = ({ children }) => {
                 const uploadFormData = new FormData();
                 uploadFormData.append("receipt", receiptFile);
 
-                console.log("Uploading receipt for transaction:", newTransaction._id);
-
-                const uploadRes = await apiFetch(`/api/upload/receipt/${newTransaction._id}`, {
+                await apiFetch(`/api/upload/receipt/${newTransaction._id}`, {
                     method: "POST",
                     body: uploadFormData,
                     headers: {}
                 });
-
-                console.log("Upload response:", uploadRes.status);
             }
 
             await fetchTransactions(true);
@@ -119,13 +122,13 @@ export const TransProvider = ({ children }) => {
             const res = await apiFetch(`/api/trans/${id}`, {
                 method: "DELETE"
             });
-            if (res.ok) {
+            if (res?.ok) {
                 await fetchTransactions(true);
                 return { success: true };
             } else {
                 return { success: false, error: "Failed to delete Transaction"};
             }
-        } catch (err) {
+        } catch {
             return { success: false, error: "Error deleting Transaction"};
         }
     };
